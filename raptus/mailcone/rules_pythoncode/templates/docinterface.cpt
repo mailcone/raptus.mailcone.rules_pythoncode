@@ -1,0 +1,21 @@
+<h2 tal:content="view.name">IMail</h2>
+<p tal:content="view.doc">Description of this interface...</p>
+
+<table class="listing">
+    <thead>
+        <tr>
+            <th>name</th>
+            <th>type</th>
+            <th>description</th>
+            <th>list of</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr tal:repeat="field view.fields">
+            <td tal:content="field.name"/>
+            <td tal:content="field.type"/>
+            <td tal:content="field.description"/>
+            <td tal:content="field.value_type"/>
+        </tr>
+    </tbody>
+</table>
