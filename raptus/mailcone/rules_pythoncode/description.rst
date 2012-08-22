@@ -18,7 +18,8 @@ Usage
 -----
 Use the instance variable "mail" to get access on the actual processed mail. You are
 free to use every import include in this application.
-At the end you should set "mail.result" which False or True to define the output flow.
+At the end you should use the method "**match**" to define the rest of the workflow. True
+is default. e.g. "**match()**" "**match(False)**"
 
 Example
 -------
@@ -26,20 +27,17 @@ Example
 python snippet to check a email address of validity::
 
     import re
+    PATTERN = re.compile('^[_.0-9a-z-]+@([0-9a-z][0-9a-z-]+.)+[a-z]{2,4}$')
     
     class ValidateEmail(object):
-    
-        pattern = re.compile('^[_.0-9a-z-]+@([0-9a-z][0-9a-z-]+.)+[a-z]{2,4}$')
     
         def __init__(self, mail):
             self.mail = mail
     
-        def valid(self):
-            if self.mail.mail_from:
-                if self.pattern.match(self.mail.mail_from):
-                    mail.result = True
-                    return
-            mail.result = False
+        def validate(self):
+            address = (self.mail.mail_from.split(' ') + [None]).pop(0)
+            if address and PATTERN.match(address):
+                match()
     
     ve = ValidateEmail(mail)
-    ve.valid()
+    ve.validate()

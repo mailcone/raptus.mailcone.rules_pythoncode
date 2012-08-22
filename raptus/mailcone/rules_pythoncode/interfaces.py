@@ -10,24 +10,20 @@ from raptus.mailcone.rules_pythoncode import _
 
 example = u"""
 import re
+PATTERN = re.compile('^[_.0-9a-z-]+@([0-9a-z][0-9a-z-]+.)+[a-z]{2,4}$')
 
 class ValidateEmail(object):
-
-    p = r'^[_.0-9a-z-]+@([0-9a-z][0-9a-z-]+.)+[a-z]{2,4}$'
-    pattern = re.compile(p)
 
     def __init__(self, mail):
         self.mail = mail
 
-    def valid(self):
-        if self.mail.mail_from:
-            if self.pattern.match(self.mail.mail_from):
-                mail.result = True
-                return
-        mail.result = False
+    def validate(self):
+        address = (self.mail.mail_from.split(' ') + [None]).pop(0)
+        if address and PATTERN.match(address):
+            match()
 
 ve = ValidateEmail(mail)
-ve.valid()
+ve.validate()
 """
 
 
