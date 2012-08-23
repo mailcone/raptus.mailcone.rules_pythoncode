@@ -49,6 +49,9 @@ class PythonCodeItem(contents.BaseConditionItem):
 
     def raise_ex(self, e):
         exc_type, exc_value, exc_traceback = sys.exc_info()
-        msg = '\nlineno: %s\n%s' % (traceback.tb_lineno(exc_traceback), str(e),)
+        tblist = traceback.extract_tb(exc_traceback)
+        # We remove the first stack item because it is our own code.
+        filename, line_number, function, text =tblist.pop(1)
+        msg = '\nlineno: %s\n%s' % (line_number, str(e),)
         raise exceptions.RuleItemException(msg, self)
 
